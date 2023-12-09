@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixGuard.Domain", "PixGuard.Domain\PixGuard.Domain.csproj", "{8BA41652-23C1-47C0-9982-3127E653CCCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixGuard.Client", "PixGuard.Client\PixGuard.Client.csproj", "{5D35C702-ECD7-42FF-8B81-B8C271620E94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixGuard.Tests", "PixGuard.Tests\PixGuard.Tests.csproj", "{F00BDB85-E300-4E8B-9046-850182A693B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixGuard.Api", "PixGuard.Api\PixGuard.Api.csproj", "{01035841-C104-4F0C-8873-26DBE46539AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BA41652-23C1-47C0-9982-3127E653CCCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BA41652-23C1-47C0-9982-3127E653CCCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BA41652-23C1-47C0-9982-3127E653CCCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BA41652-23C1-47C0-9982-3127E653CCCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D35C702-ECD7-42FF-8B81-B8C271620E94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D35C702-ECD7-42FF-8B81-B8C271620E94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D35C702-ECD7-42FF-8B81-B8C271620E94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D35C702-ECD7-42FF-8B81-B8C271620E94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F00BDB85-E300-4E8B-9046-850182A693B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F00BDB85-E300-4E8B-9046-850182A693B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F00BDB85-E300-4E8B-9046-850182A693B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F00BDB85-E300-4E8B-9046-850182A693B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01035841-C104-4F0C-8873-26DBE46539AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01035841-C104-4F0C-8873-26DBE46539AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01035841-C104-4F0C-8873-26DBE46539AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01035841-C104-4F0C-8873-26DBE46539AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
