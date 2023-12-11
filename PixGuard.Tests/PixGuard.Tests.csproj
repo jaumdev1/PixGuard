@@ -17,4 +17,12 @@
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\PixGuard.Domain\PixGuard.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Api\Repository\" />
+    </ItemGroup>
+
 </Project>

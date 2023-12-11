@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using PixGuard.Api.Application.Contracts;
+using Domain.Entities;
+
 
 namespace PixGuard.Api.Presentation;
 
@@ -6,11 +9,28 @@ namespace PixGuard.Api.Presentation;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    [HttpGet]
-    [Route("/user")]
-    public async Task<string> Index()
+    private readonly IRepository<User> _repository;
+
+    public UserController(IRepository<User> repository)
     {
-        string message = "online";
-        return await Task.FromResult(message);
+        _repository = repository;
+    }
+    [HttpPost]
+    [Route("/user")]
+    public async Task<ActionResult>Create(User user)
+    {
+        await _repository.Add(user);
+        return CreatedAtAction(nameof(GetById),new { id = user.Id }, user);
+    }
+    [HttpGet]
+    [Route("/user/{id}")]
+    public async Task<ActionResult<User>> GetById(int id)
+    {
+        var user = await _repository.GetById(id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+        return user;
     }
 }

@@ -4,18 +4,14 @@ using Domain.Enumerables;
 
 namespace Domain.Entities;
 
-public class Pix
+public class Pix: BaseEntity
 {
-    [Key]
-    public required string PixId { get; set; }
 
     [Required]
     public required KeyType KeyType { get; set; }
 
     [Required] public required string KeyValue { get; set; }
-
-    [Required] public required string UserId { get; set; }
-
-    [Required]
-    public required User User { get; set; }
+    public  Guid? UserId { get; set; }
+    [ForeignKey("UserId")]
+    public  User? User { get; set; }
 }
