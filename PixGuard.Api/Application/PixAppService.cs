@@ -37,6 +37,7 @@ public class PixAppService:  IAppService<PixDto, CreatePixDto>
 
         if (pixList == null)
         {
+            
             throw new Exception("Could not  get all PixDto objects from PixRepository");
         }
         
