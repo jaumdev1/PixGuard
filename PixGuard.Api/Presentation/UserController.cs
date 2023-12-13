@@ -24,7 +24,7 @@ public class UserController : ControllerBase
     }
     [HttpGet]
     [Route("/user/{id}")]
-    public async Task<ActionResult<User>> GetById(int id)
+    public async Task<ActionResult<User>> GetById(Guid id)
     {
         var user = await _repository.GetById(id);
         if (user == null)

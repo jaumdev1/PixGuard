@@ -2,36 +2,48 @@ using Microsoft.AspNetCore.Mvc;
 using PixGuard.Api.Application.Contracts;
 using Domain.Entities;
 using Domain.Enumerables;
+using Domain.DTOs;
+using Domain.Contracts;
+using Domain.Services;
+
 namespace PixGuard.Api.Presentation;
 
 [ApiController]
 [Route("[controller]")]
 public class PixController : ControllerBase
 {
-    private readonly IRepository<Pix> _repository;
+    private readonly IAppService<PixDto, CreatePixDto> _pixAppService;
 
-    public PixController(IRepository<Pix> repository)
+    public PixController(IAppService<PixDto, CreatePixDto> pixAppService)
     {
-        _repository = repository;
+        _pixAppService = pixAppService;
     }
-    [HttpPost]
-    [Route("/pix")]
-    public async Task<ActionResult> Create(Pix pix)
-    {
     
-        await _repository.Add(pix);
-        return CreatedAtAction(nameof(GetById), new { id = pix.Id }, pix);
+    
+    [HttpPost]
+    public async Task<ActionResult> Create([FromBody] CreatePixDto createPixDto)
+    {
+        _pixAppService.Add(createPixDto);
+        return Ok("Pix created successfully");
     }
 
-    [HttpGet]
-    [Route("/pix/{id}")]
-    public async Task<ActionResult<Pix>> GetById(int id)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<PixDto>> GetById(Guid id)
     {
-        var pix = await _repository.GetById(id);
-        if (pix == null)
+        var pixDto = _pixAppService.GetById(id);
+
+        if (pixDto == null)
         {
-            return NotFound();
+            return NotFound(); 
         }
-        return pix;
+
+        return Ok(pixDto);
+    }
+
+    [HttpGet("all")]
+    public async Task<ActionResult<List<PixDto>>> GetAll()
+    {
+        var pixList = _pixAppService.GetAll();
+        return Ok(pixList);
     }
 }

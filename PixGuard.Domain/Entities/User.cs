@@ -18,8 +18,6 @@ public class User : BaseEntity
     [Required]
     [MinLength(6)]
     public required string Password { get; set; } 
-    
-    public required string PhoneNumber { get; set; }
     public ICollection<Pix> PixKeys { get; set; }
     
     

@@ -19,14 +19,13 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         return await _context.Set<T>().ToListAsync();
     }
 
-    public async Task<T> GetById(int id)
+    public async Task<T> GetById(Guid id)
     {
         return await _context.Set<T>().FindAsync(id);
     }
 
     public async Task Add(T entity)
     {
-        entity.Id = Guid.NewGuid();
         await _context.Set<T>().AddAsync(entity);
         await _context.SaveChangesAsync();
     }

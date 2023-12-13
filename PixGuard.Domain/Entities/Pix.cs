@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.DTOs;
 using Domain.Enumerables;
 
 namespace Domain.Entities;
@@ -14,4 +15,6 @@ public class Pix: BaseEntity
     public  Guid? UserId { get; set; }
     [ForeignKey("UserId")]
     public  User? User { get; set; }
+    
+  
 }

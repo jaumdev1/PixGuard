@@ -46,4 +46,8 @@
       <Compile Remove="Migrations\20231211205109_phoneNumber.Designer.cs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations\" />
+    </ItemGroup>
+
 </Project>

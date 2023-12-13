@@ -11,8 +11,8 @@ using PixGuard.Api.Persistence;
 namespace PixGuard.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231211214009_addingPhoneNumber")]
-    partial class addingPhoneNumber
+    [Migration("20231212013108_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,10 +106,6 @@ namespace PixGuard.Api.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("longtext");
 
