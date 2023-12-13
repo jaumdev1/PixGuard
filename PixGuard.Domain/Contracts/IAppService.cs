@@ -6,6 +6,6 @@ public interface IAppService<TDto, TCreateDto>
 {
     Task<TDto> GetById(Guid id);
     Task<List<TDto>> GetAll();
-    Task<bool> Add(TCreateDto createDto);
+    Task<Guid> Add(TCreateDto createDto);
 
 }

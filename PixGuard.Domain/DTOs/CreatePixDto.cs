@@ -12,5 +12,6 @@ public class CreatePixDto
     public string KeyValue { get; set; }
 
     public Guid? UserId { get; set; }
-
+    
+    
 }

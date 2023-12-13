@@ -24,10 +24,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-builder.Services.AddScoped(typeof(IRepository<Pix>), typeof(Repository<Pix>));
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(PixMapper), typeof(PixMapper));
+builder.Services.AddScoped(typeof(UserMapper), typeof(UserMapper));
 builder.Services.AddScoped<IAppService<PixDto, CreatePixDto>, PixAppService>();
-
+builder.Services.AddScoped<IAppService<UserDto, CreateUserDto>, UserAppService>();
 
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())

@@ -1,36 +1,44 @@
+using Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using PixGuard.Api.Application.Contracts;
 using Domain.Entities;
+using Domain.Contracts;
 
-
-namespace PixGuard.Api.Presentation;
+namespace UserGuard.Api.Presentation;
 
 [ApiController]
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly IRepository<User> _repository;
+    private readonly IAppService<UserDto, CreateUserDto> _userAppService;
 
-    public UserController(IRepository<User> repository)
+    public UserController(IAppService<UserDto, CreateUserDto> userAppService)
     {
-        _repository = repository;
+        _userAppService = userAppService;
     }
     [HttpPost]
-    [Route("/user")]
-    public async Task<ActionResult>Create(User user)
+    public async Task<ActionResult<Guid>> Create([FromBody] CreateUserDto createUserDto)
     {
-        await _repository.Add(user);
-        return CreatedAtAction(nameof(GetById),new { id = user.Id }, user);
+        var userId = await _userAppService.Add(createUserDto);
+        return Ok(userId);
     }
-    [HttpGet]
-    [Route("/user/{id}")]
-    public async Task<ActionResult<User>> GetById(Guid id)
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<UserDto>> GetById(Guid id)
     {
-        var user = await _repository.GetById(id);
-        if (user == null)
+        var userDto = await _userAppService.GetById(id);
+
+        if (userDto == null)
         {
-            return NotFound();
+            return NotFound(); 
         }
-        return user;
+
+        return Ok(userDto);
+    }
+
+    [HttpGet("all")]
+    public async Task<List<UserDto>> GetAll()
+    {
+        var userList = await _userAppService.GetAll();
+        return userList;
     }
 }

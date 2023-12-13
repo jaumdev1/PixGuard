@@ -44,12 +44,16 @@ public class PixAppService:  IAppService<PixDto, CreatePixDto>
         return pixsDto;
     }
 
-    public async Task<bool> Add(CreatePixDto createDto)
+    public async Task<Guid> Add(CreatePixDto createDto)
     {
-        var pix = _pixMapper.ToEntity(createDto);
-         await _pixRepository.Add(pix);
         
-        return true;
+            var pix = _pixMapper.ToEntity(createDto);
+
+            await _pixRepository.Add(pix);
+
+            return pix.Id;
+      
+       
     }
     
   

@@ -26,10 +26,19 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
 
     public async Task Add(T entity)
     {
-        await _context.Set<T>().AddAsync(entity);
-        await _context.SaveChangesAsync();
+        try
+        {
+            await _context.Set<T>().AddAsync(entity);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            throw new Exception($"Could not add ");
+
+        }
+        
     }
-    public async Task Update(T entity)
+    public async Task Update(T entity )
     {
         _context.Set<T>().Update(entity);
         await _context.SaveChangesAsync();

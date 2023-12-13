@@ -21,10 +21,10 @@ public class PixController : ControllerBase
     
     
     [HttpPost]
-    public async Task<ActionResult> Create([FromBody] CreatePixDto createPixDto)
+    public async Task<ActionResult<Guid>> Create([FromBody] CreatePixDto createPixDto)
     {
-         await _pixAppService.Add(createPixDto);
-        return Ok("Pix created successfully");
+        var pixId = await _pixAppService.Add(createPixDto);
+        return Ok(pixId);
     }
 
     [HttpGet("{id}")]
