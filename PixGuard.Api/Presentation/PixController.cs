@@ -5,7 +5,7 @@ using Domain.Enumerables;
 using Domain.DTOs;
 using Domain.Contracts;
 using Domain.Services;
-
+using System.Collections.Generic;
 namespace PixGuard.Api.Presentation;
 
 [ApiController]
@@ -23,14 +23,14 @@ public class PixController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> Create([FromBody] CreatePixDto createPixDto)
     {
-        _pixAppService.Add(createPixDto);
+         await _pixAppService.Add(createPixDto);
         return Ok("Pix created successfully");
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<PixDto>> GetById(Guid id)
     {
-        var pixDto = _pixAppService.GetById(id);
+        var pixDto = await _pixAppService.GetById(id);
 
         if (pixDto == null)
         {
@@ -41,9 +41,9 @@ public class PixController : ControllerBase
     }
 
     [HttpGet("all")]
-    public async Task<ActionResult<List<PixDto>>> GetAll()
+    public async Task<List<PixDto>> GetAll()
     {
-        var pixList = _pixAppService.GetAll();
-        return Ok(pixList);
+        var pixList = await _pixAppService.GetAll();
+        return pixList;
     }
 }

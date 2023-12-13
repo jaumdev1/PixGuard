@@ -14,11 +14,10 @@ public class PixMapper
         };
     }
 
-    public Pix ToEntity(PixDto dto)
+    public Pix ToEntity(CreatePixDto dto)
     {
         return new Pix
         {
-            Id = dto.Id,
             KeyType = dto.KeyType,
             KeyValue = dto.KeyValue,
             UserId = dto.UserId

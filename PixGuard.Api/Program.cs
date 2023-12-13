@@ -1,9 +1,14 @@
+using Domain.Contracts;
+using Domain.DTOs;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using PixGuard.Api.Application.Contracts;
 using PixGuard.Api.Persistence.Repository;
 using PixGuard.Api.Persistence;
+using PixGuard.Api.Application.Contracts.Mappers;
+
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using PixGuard.Api.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +22,11 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+
+builder.Services.AddScoped(typeof(IRepository<Pix>), typeof(Repository<Pix>));
+builder.Services.AddScoped(typeof(PixMapper), typeof(PixMapper));
+builder.Services.AddScoped<IAppService<PixDto, CreatePixDto>, PixAppService>();
 
 
 var app = builder.Build();

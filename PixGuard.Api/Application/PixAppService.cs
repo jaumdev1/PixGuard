@@ -31,27 +31,24 @@ public class PixAppService:  IAppService<PixDto, CreatePixDto>
         return pixDto;
     }
 
-
-    public  async Task<IEnumerable<PixDto>> GetAll()
+    public async Task<List<PixDto>> GetAll()
     {
-        var pix = await _pixRepository.GetAll();
-        
-        var pixsDto = new List<PixDto>();
-        if (pix == null)
+        var pixList = await _pixRepository.GetAll();
+
+        if (pixList == null)
         {
-            return null;
+            throw new Exception("Could not  get all PixDto objects from PixRepository");
         }
+        
+        var pixsDto = pixList.Select(pix => _pixMapper.ToDto(pix)).ToList();
         return pixsDto;
     }
 
     public async Task<bool> Add(CreatePixDto createDto)
     {
-        var pix = await _pixRepository.GetAll();
-        if (pix == null)
-        {
-            return false;
-        }
-
+        var pix = _pixMapper.ToEntity(createDto);
+         await _pixRepository.Add(pix);
+        
         return true;
     }
     
