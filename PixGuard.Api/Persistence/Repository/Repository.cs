@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using PixGuard.Api.Application.Contracts;
 
@@ -26,17 +27,10 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
 
     public async Task Add(T entity)
     {
-        try
-        {
-            await _context.Set<T>().AddAsync(entity);
-            await _context.SaveChangesAsync();
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"Could not add ");
 
-        }
-        
+   
+        await _context.Set<T>().AddAsync(entity);
+        await _context.SaveChangesAsync();
     }
     public async Task Update(T entity )
     {

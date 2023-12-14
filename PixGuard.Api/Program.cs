@@ -9,6 +9,8 @@ using PixGuard.Api.Application.Contracts.Mappers;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using PixGuard.Api.Application;
+using PixGuard.Api.Persistence.Middlewares;
+using PixGuard.Api.Presentation.CustomExceptionHandler;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +32,10 @@ builder.Services.AddScoped(typeof(UserMapper), typeof(UserMapper));
 builder.Services.AddScoped<IAppService<PixDto, CreatePixDto>, PixAppService>();
 builder.Services.AddScoped<IAppService<UserDto, CreateUserDto>, UserAppService>();
 
+
+//
+// builder.Services.AddScoped<CustomExceptionHandler>();
+
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
@@ -42,6 +48,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+ app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 app.MapControllers();

@@ -2,6 +2,7 @@ using PixGuard.Api.Application.Contracts;
 using Domain.Entities;
 using Domain.DTOs;
 using Domain.Contracts;
+using Domain.Exceptions;
 using PixGuard.Api.Application.Contracts.Mappers;
 
 namespace PixGuard.Api.Application;
@@ -20,14 +21,8 @@ public class PixAppService:  IAppService<PixDto, CreatePixDto>
     {
         var pix = await _pixRepository.GetById(id);
         
-        _pixMapper.ToDto(pix);
-        
         var pixDto =  _pixMapper.ToDto(pix);
-        if (pix == null)
-        {
-            return null;
-        }
-      
+       
         return pixDto;
     }
 
@@ -46,12 +41,17 @@ public class PixAppService:  IAppService<PixDto, CreatePixDto>
 
     public async Task<Guid> Add(CreatePixDto createDto)
     {
-        
+      
             var pix = _pixMapper.ToEntity(createDto);
 
             await _pixRepository.Add(pix);
 
             return pix.Id;
+            
+
+
+        
+            
       
        
     }
