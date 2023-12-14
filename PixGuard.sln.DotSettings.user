@@ -1,10 +1,10 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=01035841_002DC104_002D4F0C_002D8873_002D26DBE46539AE_002Fd_003AMigrations_002Ff_003AAppDbContextModelSnapshot_002Ecs/@EntryIndexedValue">ExplicitlyExcluded</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=263bb4ef_002D2b4a_002D423f_002Da948_002D5ee86879efec/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Pix_MustHavePropertyPixIdWithAttributeKey" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;ProjectFile&gt;F00BDB85-E300-4E8B-9046-850182A693B9/d:Domain/f:PixTests.cs&lt;/ProjectFile&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=263bb4ef_002D2b4a_002D423f_002Da948_002D5ee86879efec/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Pix_MustHavePropertyPixIdWithAttributeKey" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/home/jaum/RiderProjects/PixGuard/PixGuard.Tests" Presentation="&amp;lt;PixGuard.Tests&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e552702a_002D1577_002D47db_002D825b_002Df00060a88b87/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Pix_MustHavePropertyPixIdWithAttributeKey #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;ProjectFile&gt;F00BDB85-E300-4E8B-9046-850182A693B9/d:Domain/f:PixTests.cs&lt;/ProjectFile&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e552702a_002D1577_002D47db_002D825b_002Df00060a88b87/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Pix_MustHavePropertyPixIdWithAttributeKey #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/home/jaum/RiderProjects/PixGuard/PixGuard.Tests" Presentation="&amp;lt;PixGuard.Tests&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
 	
 	

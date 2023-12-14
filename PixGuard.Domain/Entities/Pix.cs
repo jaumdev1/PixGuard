@@ -9,9 +9,10 @@ public class Pix: BaseEntity
 {
 
     [Required]
-    public required KeyType KeyType { get; set; }
+    public  KeyType KeyType { get; set; }
 
-    [Required] public required string KeyValue { get; set; }
+    [Required] 
+    public  string KeyValue { get; set; }
     public  Guid? UserId { get; set; }
     [ForeignKey("UserId")]
     public  User? User { get; set; }

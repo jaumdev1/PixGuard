@@ -28,6 +28,9 @@ public class ExceptionMiddleware
                     HandlePixException(context, customException);
                     break;
              
+                case InvalidEnumValueException enumException:  
+                    HandleEnumException(context, enumException);
+                    break;
                 default:
                     HandleGenericException(context, ex);
                     break;
@@ -39,8 +42,19 @@ public class ExceptionMiddleware
     {
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = 400; 
+        
     }
-    
+    private async void HandleEnumException(HttpContext context, InvalidEnumValueException ex)
+    {
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = 500; 
+        var errorDetails = new
+        {
+            StatusCode = context.Response.StatusCode,
+            Message = "Enum Convert Type Server Error"
+        };
+        await context.Response.WriteAsync(JsonSerializer.Serialize(errorDetails));
+    }
     private async void HandleGenericException(HttpContext context, Exception ex)
     {
         context.Response.ContentType = "application/json";

@@ -21,6 +21,7 @@ public class PixController : ControllerBase
     
     
     [HttpPost]
+    
     public async Task<ActionResult<Guid>> Create([FromBody] CreatePixDto createPixDto)
     {
         var pixId = await _pixAppService.Add(createPixDto);

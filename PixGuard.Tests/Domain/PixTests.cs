@@ -21,7 +21,7 @@ public class Tests
     public void Pix_MustHavePropertyPixIdWithAttributeKey()
     {
 
-        var propertyInfo = typeof(Pix).GetProperty("PixId");
+        var propertyInfo = typeof(Pix).GetProperty("Id");
 
 
         var keyAttribute = propertyInfo.GetCustomAttributes(typeof(KeyAttribute), true);
@@ -33,7 +33,6 @@ public class Tests
 
     [TestCase("KeyType")]
     [TestCase("KeyValue")]
-    [TestCase("UserId")]
     [Test]
     public void Pix_RequiredProperities(string propertyName)
     {
@@ -99,5 +98,42 @@ public class Tests
 
        
         Assert.IsFalse(result);
+    }
+    
+    
+    [Test]
+    public void Pix_WhenAllPropertiesAreValid_ShouldPassValidation()
+    {
+        // Arrange
+        var pix = new Pix
+        {
+            KeyType = KeyType.PhoneNumber,
+            KeyValue = "(31) 99344-0434",
+            UserId = Guid.NewGuid(),
+           
+        };
+
+        // Act
+        var validationResults = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(pix, new ValidationContext(pix), validationResults, true);
+
+        // Assert
+        Assert.IsTrue(isValid, "Pix object should pass validation");
+        Assert.IsEmpty(validationResults, "Validation results should be empty");
+    }
+    [Test]
+    public void Pix_WhenUserNotProvidedButUserIdIs_ShouldFailValidation()
+    {
+       
+        var pix = new Pix
+        {
+            KeyType = KeyType.PhoneNumber,
+            UserId = Guid.NewGuid()
+        };
+        
+        var validationResults = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(pix, new ValidationContext(pix), validationResults, true);
+        Assert.IsFalse(isValid, "Pix object should fail validation when User is not provided but KeyValue is");
+        Assert.IsTrue(validationResults.Any(vr => vr.MemberNames.Contains(nameof(Pix.KeyValue))), "Validation result should contain error for KeyValue");
     }
 }

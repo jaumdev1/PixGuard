@@ -32,10 +32,6 @@ builder.Services.AddScoped(typeof(UserMapper), typeof(UserMapper));
 builder.Services.AddScoped<IAppService<PixDto, CreatePixDto>, PixAppService>();
 builder.Services.AddScoped<IAppService<UserDto, CreateUserDto>, UserAppService>();
 
-
-//
-// builder.Services.AddScoped<CustomExceptionHandler>();
-
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
@@ -48,7 +44,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
- app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 app.MapControllers();

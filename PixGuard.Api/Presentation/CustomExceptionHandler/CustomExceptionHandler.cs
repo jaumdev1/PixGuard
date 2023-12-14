@@ -1,3 +1,4 @@
+using Domain.Entities;
 using Domain.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
@@ -14,13 +15,24 @@ public class CustomExceptionHandler : IExceptionHandler
  
         _exceptionHandlers = new()
             {
-                { typeof(Exception), HandlePixException },
-              
+                { typeof(PixException), HandlePixException },
+                { typeof(InvalidEnumValueException), HandleInvalidEnumValueException },
                 { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
           
             };
     }
+    private async Task HandleInvalidEnumValueException(HttpContext httpContext, Exception ex)
+    {
+        httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
 
+        await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
+        {
+            Status = StatusCodes.Status400BadRequest,
+            Title = "Invalid Enum Value",
+            Detail = ex.Message,
+            Type = "https://example.com/errors/invalid-enum-value"
+        });
+    }
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
         var exceptionType = exception.GetType();
