@@ -35,7 +35,7 @@ public class UserController : ControllerBase
         return Ok(userDto);
     }
 
-    [HttpGet("all")]
+    [HttpGet("")]
     public async Task<List<UserDto>> GetAll()
     {
         var userList = await _userAppService.GetAll();

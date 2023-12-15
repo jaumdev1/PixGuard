@@ -31,6 +31,10 @@ public class ExceptionMiddleware
                 case InvalidEnumValueException enumException:  
                     HandleEnumException(context, enumException);
                     break;
+                
+                case UnauthorizedAccessException unauthorizedAccessExceptionException:
+                    HandleUnauthorizedException(context, unauthorizedAccessExceptionException);
+                    break;
                 default:
                     HandleGenericException(context, ex);
                     break;
@@ -43,6 +47,17 @@ public class ExceptionMiddleware
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = 400; 
         
+    }
+    private async void HandleUnauthorizedException(HttpContext context, UnauthorizedAccessException ex)
+    {
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = 401; 
+        var errorDetails = new
+        {
+            StatusCode = context.Response.StatusCode,
+            Message = "Unauthorized access, incorrect login or password."
+        };
+        await context.Response.WriteAsync(JsonSerializer.Serialize(errorDetails));
     }
     private async void HandleEnumException(HttpContext context, InvalidEnumValueException ex)
     {

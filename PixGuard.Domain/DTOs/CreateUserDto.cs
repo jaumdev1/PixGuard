@@ -13,5 +13,9 @@ public class CreateUserDto
     [Required]
     [MinLength(6)]
     public required string Password { get; set; } 
+    
+    [Required]
+    [MinLength(6)]
+    public required string ConfirmPassword { get; set; } 
 
 }

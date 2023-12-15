@@ -2,6 +2,7 @@ using PixGuard.Api.Application.Contracts;
 using Domain.Entities;
 using Domain.DTOs;
 using Domain.Contracts;
+using Domain.Services;
 using PixGuard.Api.Application.Contracts.Mappers;
 
 namespace PixGuard.Api.Application;
@@ -43,6 +44,8 @@ public class UserAppService:  IAppService<UserDto, CreateUserDto>
         
             var user = _userMapper.ToEntity(createDto);
 
+            user = UserService.ConvertHashPassword(user);
+          
             await _userRepository.Add(user);
 
             return user.Id;

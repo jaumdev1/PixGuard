@@ -12,9 +12,9 @@ namespace PixGuard.Api.Presentation;
 [Route("[controller]")]
 public class PixController : ControllerBase
 {
-    private readonly IAppService<PixDto, CreatePixDto> _pixAppService;
+    private readonly IPixAppService _pixAppService;
 
-    public PixController(IAppService<PixDto, CreatePixDto> pixAppService)
+    public PixController(IPixAppService pixAppService)
     {
         _pixAppService = pixAppService;
     }
@@ -41,10 +41,25 @@ public class PixController : ControllerBase
         return Ok(pixDto);
     }
 
-    [HttpGet("all")]
+    [HttpGet("")]
     public async Task<List<PixDto>> GetAll()
     {
         var pixList = await _pixAppService.GetAll();
         return pixList;
     }
+    
+    
+    [HttpGet("keyvalue/{value}")]
+    public async Task<ActionResult<List<PixDto>>> GetByValue(string value)
+    {
+        var pixDto = await _pixAppService.GetByValue(value);
+
+        if (pixDto == null)
+        {
+            return NotFound(); 
+        }
+
+        return Ok(pixDto);
+    }
+    
 }

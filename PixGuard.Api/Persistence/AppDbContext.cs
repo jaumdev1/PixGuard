@@ -20,13 +20,8 @@ public class AppDbContext: DbContext
             .HasOne(p => p.User)
             .WithMany(u => u.PixKeys)
             .HasForeignKey(p => p.UserId)
-            .OnDelete(DeleteBehavior.Restrict); 
-       
-
-
-        
+            .OnDelete(DeleteBehavior.Restrict);
     }
-
     public DbSet<User> Users { get; set; }
     public DbSet<Pix> Pixs { get; set; }
     public DbSet<Assessment> Assessments { get; set; }

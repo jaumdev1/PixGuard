@@ -7,11 +7,11 @@ using PixGuard.Api.Application.Contracts.Mappers;
 
 namespace PixGuard.Api.Application;
 
-public class PixAppService:  IAppService<PixDto, CreatePixDto>
+public class PixAppService:  IPixAppService
 {
-    private readonly IRepository<Pix> _pixRepository;
+    private readonly IPixRepository _pixRepository;
     private readonly PixMapper _pixMapper;
-    public PixAppService(IRepository<Pix> pixRepository, PixMapper pixMapper)
+    public PixAppService(IPixRepository pixRepository, PixMapper pixMapper)
     {
         _pixRepository = pixRepository;
         _pixMapper = pixMapper;
@@ -48,13 +48,14 @@ public class PixAppService:  IAppService<PixDto, CreatePixDto>
 
             return pix.Id;
             
-
-
-        
             
-      
        
     }
     
-  
+    public async Task<List<PixDto>> GetByValue(string value)
+    {
+        var pixList = await _pixRepository.GetByValue(value);
+        var pixsDto = pixList.Select(pix => _pixMapper.ToDto(pix)).ToList();
+        return pixsDto;
+    }
 }
