@@ -2,6 +2,7 @@ using PixGuard.Api.Application.Contracts;
 using Domain.Entities;
 using Domain.DTOs;
 using Domain.Contracts;
+using Domain.Exceptions;
 using Domain.Services;
 using PixGuard.Api.Application.Contracts.Mappers;
 
@@ -9,9 +10,9 @@ namespace PixGuard.Api.Application;
 
 public class UserAppService:  IAppService<UserDto, CreateUserDto>
 {
-    private readonly IRepository<User> _userRepository;
+    private IUserRepository _userRepository;
     private readonly UserMapper _userMapper;
-    public UserAppService(IRepository<User> userRepository, UserMapper userMapper)
+    public UserAppService(IUserRepository userRepository, UserMapper userMapper)
     {
         _userRepository = userRepository;
         _userMapper = userMapper;
@@ -43,7 +44,13 @@ public class UserAppService:  IAppService<UserDto, CreateUserDto>
     {
         
             var user = _userMapper.ToEntity(createDto);
-
+        
+            var userExists = await _userRepository.GetByEmail(user.Email);
+            if (userExists != null)
+            {
+                throw new UserExistsException("User already exists");
+            }
+            
             user = UserService.ConvertHashPassword(user);
           
             await _userRepository.Add(user);

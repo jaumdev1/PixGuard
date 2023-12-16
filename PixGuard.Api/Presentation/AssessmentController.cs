@@ -6,6 +6,8 @@ using Domain.DTOs;
 using Domain.Contracts;
 using Domain.Services;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+
 namespace PixGuard.Api.Presentation;
 
 [ApiController]
@@ -48,7 +50,8 @@ public class AssessmentController : ControllerBase
         return Ok(assessmentDto);
     }
 
-    [HttpGet("")]
+    [HttpGet]
+    [Authorize]
     public async Task<List<AssessmentDto>> GetAll()
     {
         var assessmentList = await _assessmentAppService.GetAll();

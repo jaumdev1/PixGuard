@@ -2,6 +2,7 @@ using Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Entities;
 using Domain.Contracts;
+using Domain.Exceptions;
 
 namespace UserGuard.Api.Presentation;
 
@@ -18,8 +19,11 @@ public class UserController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Guid>> Create([FromBody] CreateUserDto createUserDto)
     {
+        
         var userId = await _userAppService.Add(createUserDto);
         return Ok(userId);
+      
+        
     }
 
     [HttpGet("{id}")]

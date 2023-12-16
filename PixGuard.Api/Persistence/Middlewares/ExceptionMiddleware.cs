@@ -32,9 +32,14 @@ public class ExceptionMiddleware
                     HandleEnumException(context, enumException);
                     break;
                 
-                case UnauthorizedAccessException unauthorizedAccessExceptionException:
-                    HandleUnauthorizedException(context, unauthorizedAccessExceptionException);
+                case UnauthorizedAccessException unauthorizedAccessException:
+                    HandleUnauthorizedException(context, unauthorizedAccessException);
                     break;
+                
+                case UserExistsException userExistsException:
+                    HandleUserExistsException(context, userExistsException);
+                    break;
+                    
                 default:
                     HandleGenericException(context, ex);
                     break;
@@ -59,6 +64,18 @@ public class ExceptionMiddleware
         };
         await context.Response.WriteAsync(JsonSerializer.Serialize(errorDetails));
     }
+    
+    private async void HandleUserExistsException(HttpContext context, UserExistsException ex)
+    {
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = 409; 
+        var errorDetails = new
+        {
+            StatusCode = context.Response.StatusCode,
+            Message = "The email provided is already in use."
+        };
+        await context.Response.WriteAsync(JsonSerializer.Serialize(errorDetails));
+    }
     private async void HandleEnumException(HttpContext context, InvalidEnumValueException ex)
     {
         context.Response.ContentType = "application/json";
@@ -70,6 +87,9 @@ public class ExceptionMiddleware
         };
         await context.Response.WriteAsync(JsonSerializer.Serialize(errorDetails));
     }
+    
+    
+    
     private async void HandleGenericException(HttpContext context, Exception ex)
     {
         context.Response.ContentType = "application/json";

@@ -20,7 +20,15 @@ public class AuthenticationController : ControllerBase
 
         if (token == null)
             return Unauthorized();
-
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true,  
+            Secure = true,
+            SameSite = SameSiteMode.Strict,
+            MaxAge = TimeSpan.FromDays(1)  
+        };
+        Response.Headers.Add("Authorization", $"Bearer {token}");
+        Response.Cookies.Append("Token", token, cookieOptions);
         return Ok(new { token });
     }
     
