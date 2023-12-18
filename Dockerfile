@@ -7,15 +7,23 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["PixGuard.Api/PixGuard.Api.csproj", "PixGuard.Api/"]
-RUN dotnet restore "PixGuard.Api/PixGuard.Api.csproj"
+
+COPY PixGuard.Api/PixGuard.Api.csproj PixGuard.Api/
+COPY PixGuard.Domain/PixGuard.Domain.csproj PixGuard.Domain/
+
+# Restaurar as dependências
+RUN dotnet restore PixGuard.Api/PixGuard.Api.csproj
+
+# Copiar o resto do código
 COPY . .
+
 WORKDIR "/src/PixGuard.Api"
-RUN dotnet build "PixGuard.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "PixGuard.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+WORKDIR "/src/PixGuard.Api"
+RUN dotnet publish -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
