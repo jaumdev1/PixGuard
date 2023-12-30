@@ -57,8 +57,6 @@ builder.Services.AddAuthentication(x =>
 });
 
 
-
-
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IPixRepository, PixRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
